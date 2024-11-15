@@ -1,5 +1,6 @@
 ## Apresentação
 
+* ![Selfie](foto_apresentação.png)
 * Olá, me chamo Carlos Alberto Alves Ribeiro, tenho 20 anos e moro no Rio de Janeiro - Rj
 * Estou cursando o segundo semestre de Análise e Desenvolvimento de Sistemas na Unisuam unidade de Campo Grande
 * hobbies:
