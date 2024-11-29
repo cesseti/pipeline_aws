@@ -1,0 +1,6 @@
+select  
+    vendas.cdven
+    
+from tbvendas as vendas
+where vendas.deletado = 1
+order by vendas.cdven 

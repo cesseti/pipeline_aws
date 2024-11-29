@@ -1,0 +1,6 @@
+select 
+    autor.nome
+
+from autor 
+where autor.codautor not in (select distinct livro.autor from livro)
+order by autor.nome

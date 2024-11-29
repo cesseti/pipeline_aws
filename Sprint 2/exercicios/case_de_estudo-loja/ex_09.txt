@@ -1,0 +1,10 @@
+select 
+    vendas.cdpro,
+    vendas.nmpro
+
+from tbvendas as vendas
+where vendas.dtven between '2014-02-03' and '2018-02-02'
+and vendas.status = 'Concluído'
+group by  vendas.cdpro, vendas.nmpro
+order by count(vendas.cdpro) desc
+limit 1

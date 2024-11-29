@@ -1,0 +1,12 @@
+select 
+    dep.cddep,
+    dep.nmdep,
+    dep.dtnasc,
+    sum(vendas.vrunt * vendas.qtd) as valor_total_vendas
+from tbdependente as dep
+left join tbvendas as vendas
+on dep.cdvdd = vendas.cdvdd
+where vendas.status = 'Concluído'
+group by dep.cddep, dep.nmdep, dep.dtnasc
+order by valor_total_vendas 
+limit 1

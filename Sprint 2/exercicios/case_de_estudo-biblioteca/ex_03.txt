@@ -1,0 +1,11 @@
+select 
+    count(li.cod) as quantidade,
+    edi.nome,
+    end.estado,
+    end.cidade
+from livro as li
+left join editora as edi
+on edi.codeditora = li.editora
+left join endereco as end
+on end.codendereco = edi.endereco
+group by edi.nome, end.estado, end.cidade

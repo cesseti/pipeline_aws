@@ -1,0 +1,12 @@
+select distinct
+    aut.nome
+    
+from autor as aut
+left join livro as li
+on aut.codautor = li.autor
+left join editora as edi
+on edi.codeditora = li.editora
+left join endereco as end
+on end.codendereco = edi.endereco 
+where end.estado not in ('RIO GRANDE DO SUL', 'PARANÁ') 
+order by aut.nome

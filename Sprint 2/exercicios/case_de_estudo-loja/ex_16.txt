@@ -1,0 +1,7 @@
+select 
+    vendas.estado,
+    vendas.nmpro,
+    round(avg (vendas.qtd), 4) as quantidade_media
+from tbvendas as vendas
+where vendas.status = 'Concluído'
+group by vendas.estado, vendas.nmpro

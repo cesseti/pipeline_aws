@@ -1,0 +1,7 @@
+select 
+    vendas.estado,
+    round(avg (vendas.vrunt * vendas.qtd), 2) as gastomedio
+from tbvendas as vendas
+where vendas.status = 'Concluído'
+group by vendas.estado
+order by gastomedio desc
