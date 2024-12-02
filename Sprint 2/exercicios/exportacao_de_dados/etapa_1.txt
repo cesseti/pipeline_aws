@@ -1,0 +1,15 @@
+select 
+    li.cod as CodLivro,
+    li.titulo as Titulo,
+    li.autor as CodAutor,
+    au.nome as NomeAutor,
+    li.valor as Valor,
+    ed.codeditora as CodEditora,
+    ed.nome as NomeEditora
+from livro as li
+left join autor as au
+on au.codautor = li.autor
+left join editora as ed
+on ed.codeditora = li.editora
+order by valor desc
+limit 10

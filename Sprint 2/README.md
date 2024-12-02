@@ -1,8 +1,8 @@
 # Resumo
 
-**Git Hub:** O curso de git hub foi essencial para a criação do repositório, entedimento acerca da organização de pastas e diretórios, aprendizado sobre a sintaxe do git e a importância de um bom git hub organizado para fácil entendimento de todos e compartilhamento de códigos de maneira fácil e prática.
+**Sql:** O curso de Sql foi muito bom para aprender melhor a usar select e joins e aprender sobre subquery pois o restante mais básico eu já tinha visto previamente na faculdade.
 
-**Linux:** O curso de linux me ensinou como viajar entre as pastas, criar, exluir e editar diretórios e arquivos, também aprendi sobre caminho das pastas que é uma das coisas mais primordiais para o cumprimento do desafio. Ele também me ensinou a usar os editores de texto nano e vim. 
+**AWS Skill Builder:** O curso de AWS
 
 # Exercícios
 
@@ -76,143 +76,36 @@
 
 ## Exercícios - Exportação de dados
 
+Nesse exercício eu fiz uma query para obter os 10 livros mais caros trazendo todas as colunas pedidas:
+
 [Etapa 1](exercicios/exportacao_de_dados/etapa_1.csv)
+
+Nessa query eu  listei as 5 editoras com maior quantidade de livros na biblioteca:
 
 [Etapa 2](exercicios/exportacao_de_dados/etapa_2.csv)
 
+OBS: ele só retorna duas editoras pois na tabela livro só contém esses dois IDs
+
 # Evidências
 
-## Case Biblioteca
+## Exportação de dados
 
-### Exercício 01 
+### Etapa 1
 
-Nessa query eu  listei todos os livros publicados após 2014
+Nesse exercício eu fiz uma query para obter os 10 livros mais caros trazendo todas as colunas pedidas
 
-![evidência](./evidencias/ex_01.png)
+![evidência](./evidencias/exportacao_de_dados/etapa_1_exportacao.png)
 
-OBS: o resultado é maior porém não coube no print
 
-### Exercício 02 
 
-Nessa query eu  listei os 10 livros mais caros.
+### Etapa 02 
 
-![evidência](./evidencias/ex_02.png)
+Nessa query eu  listei as 5 editoras com maior quantidade de livros na biblioteca
 
-OBS: o resultado é maior porém não coube no print
+![evidência](./evidencias/exportacao_de_dados/etapa_2_exportacao.png)
 
-### Exercício 03 
+OBS: ele só retorna duas editoras pois na tabela livro só contém esses dois IDs
 
-Nessa query eu  listei as 5 editoras com mais livros na biblioteca. 
-
-![evidência](./evidencias/ex_03.png)
-
-OBS: não foi necessário o uso do "limit 5" e nem de ordenar de forma decrescente para pegar as 5 com maior quantidade de livros pois na tabela "livro" só temos o id(foreign key) dessas únicas duas editoras
-
-### Exercício 04 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_04.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 05 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_05.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 06 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_06.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 07 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_07.png)
-
-OBS: o resultado é maior porém não coube no print
-
-## Case Loja
-
-### Exercício 08 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_08.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 09 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_09.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 10 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_10.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 11 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_11.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 12 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_12.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 13 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_13.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 14 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_14.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 15 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_15.png)
-
-OBS: o resultado é maior porém não coube no print
-
-### Exercício 16 
-
-Nessa query eu  listei todos os livros publicados após 2014
-
-![evidência](./evidencias/ex_16.png)
-
-OBS: o resultado é maior porém não coube no print
 
 # Certificados
 
