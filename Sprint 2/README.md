@@ -109,4 +109,4 @@ OBS: ele só retorna duas editoras pois na tabela livro só contém esses dois I
 
 # Certificados
 
-Não houveram certificados extra Udemy nessa Sprint.
+[AWS Partner Sales Accreditation](./certificados/AWS%20Partner%20Sales%20Accreditation%20(Carlos%20Alberto%20Alves%20Ribeiro).pdf)
