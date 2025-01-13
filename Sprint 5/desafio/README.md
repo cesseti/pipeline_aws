@@ -1,81 +1,102 @@
-# Etapa 1
+# Etapa inicial - conexão com conta AWS 
 
-O primeiro passo dessa etapa foi a criação de uma imagem que executasse o arquivo abaixo: 
-[carguru.py](carguru.py)
+### Para isso fiz a configuração do SSO e depois coloquei o token fornecido pelo site na pasta credentials. 
 
-Para isso utilizei o comando:
-``` docker build -t <nome da imagem> .``` que executou esse aquivo Dockerfile: [Dockerfile-etapa 1](./Dockerfile)
+
+# Etapa 1 - Criar um bucket novo e enviar o dataset escolhido
+
+## Para criação do bucket utilizei o seguinte código presente no arquivo [upload.py](upload.py)
     
-Como pode ser visto na evidência abaixo: 
+```python 
 
-![criar-imagem-carguru](../evidencias/desafio/etapa-1/criar-imagem-carguru.png)
+# guardando chamada de funcao em variavel
+client = boto3.client('s3')
 
-E aqui pode-se ver que a imagem foi criada:
-
-![imagem-criada-carguru](../evidencias/desafio/etapa-1/imagem-carguru-criada.png)
-
-Após isso foi necessária a criação e execução de um container a partir desta imagem: 
-
-![criar-conteiner](../evidencias/desafio/etapa-1/criar-conteiner-etapa1.png)
-
-E aqui está ele criado:
-
-![conteiner-criado](../evidencias/desafio/etapa-1/conteiner-etapa1-criado.png)
-
-# Etapa 2
-
-### Pergunta: É possível reutilizar um container ? 
-Resposta: Sim, e aqui está um container sendo reiniciado através do comando:
-``` docker start -i <nome do container>```
-
-![reiniciando-um-conteiner](../evidencias/desafio/etapa-2/reiniciando-um-conteiner.png)
-
-
-# Etapa 3
-
-### O primeiro passo dessa etapa foi a criação de um arquivo python que aceitasse uma string, aplicasse o hash nela e a exibisse criptografada, como podemos ver abaixo:
-
-```
-    import hashlib
-
-    # Input para receber string
-    string = input('Digite uma palavra para descobrir seu hash: ')
-
-    # Gera o hash SHA-1
-    hash_sha1 = hashlib.sha1(string.encode())
-
-    # Exibe o resultado
-    print(f"Esse é o hash da sua palavra: {hash_sha1.hexdigest()}")
+# criando bucket
+client.create_bucket(Bucket = 'sprint05' )
 
 ```
 
-Onde ```hashlib.sha1()```: Cria um objeto de hash utilizando o algoritmo SHA-1;
+## Bucket criado com sucesso : ![Bucket Criado](../evidencias/desafio/4.2-bucket_criado.png)
 
-```.encode()```: Converte a string em bytes, pois o SHA-1 opera em dados binários e 
+## E para envio do arquivo utilizei o seguinte código presente no arquivo [upload.py](upload.py)
 
-```.hexdigest()```: Retorna o hash final como uma string hexadecimal legível.
+```python 
 
+# fazendo upload do arquivo original para o bucket
+client.upload_file(Filename = 'InvestidoresTesouroDireto2018.csv',
+                   Bucket = 'sprint05',
+                   Key = 'InvestidoresTesouroDireto2018.csv')
 
-O arquivo python está aqui: [hash.py](./etapa-hash/hash.py)
+```
 
-
-
-### O segundo passo foi a criação de uma imagem para executar esse aquivo:
-
-![mascarar-dados](../evidencias/desafio/etapa-hash/criar-imagem-mascarar-dados.png) 
-
-Através do aquivo dockerfile: [Dockerfile-etapa 3](./etapa-hash/Dockerfile)
-
-E aqui pode-se ver que a imagem foi criada:
-
-![imagem-criada-mascarar-dados](../evidencias/desafio/etapa-hash/imagem-mascarar-dados-criada.png)
-
-### O terceiro e último passo foi a criação e execução do container através da respectiva imagem imagem:
-
-![criar-container](../evidencias/desafio/etapa-hash/criar-container-etapa3.png)
-
-E aqui está ele sendo executado mais uma vez:
-
-![executar-container](../evidencias/desafio/etapa-hash/etapa3-execucao.png)
+## Arquivo no bucket : ![Arquivo bucket](../evidencias/desafio/4.3-csv_enviado_bucket.png)
 
 
+# Etapa 2 - Baixar o arquivo do bucket e fazer as devidas manipulações 
+
+## Para baixar o arquivo do bucket utilizei o seguinte código presente no arquivo [manipulation.py](manipulation.py) : 
+
+```python 
+
+# guardando chamada de funcao em variavel
+client = boto3.client('s3')
+
+# baixando arquivo do bucket
+client.download_file(Bucket = 'sprint05', 
+                    Key = 'InvestidoresTesouroDireto2018.csv', 
+                    Filename = 'BAIXADO-InvestidoresTesouroDireto2018.csv')
+
+```
+
+## Para fazer as manipulações utilizei o seguinte código presente no arquivo [manipulation.py](manipulation.py) : 
+
+```python 
+# lendo dataset
+df = pd.read_csv('BAIXADO-InvestidoresTesouroDireto2018.csv', delimiter=';')
+
+# corrigindo coluna "Profissao"
+df['Profissao'] = df['Profissao'].apply(lambda x: x.split(',') if isinstance(x, str) else x)
+
+# 4.1 - filtragem - filtrando pelas colunas "Estado Civil" e "Genero"
+filter = (df['Estado Civil'] == 'Desquitado(a)') & (df['Genero'] == 'F')
+df_filtered = df[filter].copy()
+
+# 4.2 - duas funcoes de agregacao (media) e (soma)
+avg_age = df_filtered['Idade'].mean()
+
+sum_age = df_filtered['Idade'].sum()
+
+# 4.3 - funcao condicional: usando a media das idades para criar uma coluna nova
+df_filtered['Idade Avancada'] = df_filtered['Idade'].apply(lambda x: 'Sim' if x > avg_age else 'Nao')
+
+# 4.4 - funcao de conversao - convertendo inteiro para string
+df_filtered['Codigo do Investidor'] = df_filtered['Codigo do Investidor'].astype(str)
+
+# 4.5 - funcao de data - passando a data para formato padrao e utilizando o ano para criar uma nova coluna
+df_filtered['Data de Adesao'] = pd.to_datetime(df_filtered['Data de Adesao'], dayfirst= True)
+df_filtered['Ano de Adesao'] = df_filtered['Data de Adesao'].dt.year
+
+# 4.6 - funcao de string - passando a coluna para letras maiusculas
+df_filtered['Idade Avancada'] = df_filtered['Idade Avancada'].str.upper()
+
+# criando novo arquivo csv a partir do dataframe atualizado
+df_filtered.to_csv('Investidores_manipulado.csv', index= False)
+
+```
+
+
+# Etapa 3 - Enviar o arquivo manipulado para o bucket 
+
+## Para enviar o arquivo utilizei o seguinte código presente no arquivo [manipulation.py](manipulation.py) :
+
+```python 
+
+# fazendo upload do arquivo novo para nuvem
+client.upload_file(Filename = 'Investidores_manipulado.csv',
+                   Bucket = 'sprint05',
+                   Key = 'Investidores_manipulado.csv')
+
+```
+
+## Arquivo no bucket : ![Arquivo bucket](../evidencias/desafio/4.5-arquivomanipulado_no_bucket.png)
