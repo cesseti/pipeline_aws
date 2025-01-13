@@ -83,8 +83,9 @@ df_filtered['Idade Avancada'] = df_filtered['Idade Avancada'].str.upper()
 # criando novo arquivo csv a partir do dataframe atualizado
 df_filtered.to_csv('Investidores_manipulado.csv', index= False)
 
-```
+print(df_filtered.head())
 
+```
 
 # Etapa 3 - Enviar o arquivo manipulado para o bucket 
 
@@ -98,5 +99,7 @@ client.upload_file(Filename = 'Investidores_manipulado.csv',
                    Key = 'Investidores_manipulado.csv')
 
 ```
+
+## Código executado ![codigo executado](../evidencias/desafio/codigo_executado.png)
 
 ## Arquivo no bucket : ![Arquivo bucket](../evidencias/desafio/4.5-arquivomanipulado_no_bucket.png)
