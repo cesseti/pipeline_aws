@@ -1,42 +1,62 @@
 # Resumo
 
-**Python:** O curso de Python me ensinou importantes conceitos sobre programação funcional
+**AWS Cloud Quest:** O jogo da plataforma foi muito bom e intuitivo para aprender na prática os conceitos e serviços.
 
-**AWS Credenciamento Técnico:** O curso de AWS abordou todos os conceitos técnicos básicos que são necessários para mexer na nuvem.
+**AWS Preparatório:** O curso de preparação para a prova foi muito bom pois relembra muitos assuntos e nos ensina a ler e interpretar as questões da prova.
 
 # Exercícios
 
-### Exercício 01 
+### Exercício Bucket 
 
-[Ex_01](exercicios/ex1.py)
+[index.html](exercicios/index.html)
 
-### Exercício 02 
+[404.html](exercicios/404.html)
 
-[Ex_02](exercicios/ex2.py)
-
-### Exercício 03 
-
-[Ex_03](exercicios/ex3.py)
-
-### Exercício 04 
-
-[Ex_04](exercicios/ex4.py)
-
-### Exercício 05 
-
-[Ex_05](exercicios/ex5.py)
-
-### Exercício 06 
-
-[Ex_06](exercicios/ex6.py)
-
-### Exercício 07 
-
-[Ex_07](exercicios/ex7.py)
+[nomes.csv](exercicios/dados/nomes.csv)
 
 # Evidências
 
-Como foi informado, não era necessário a inclusão de evidências para os exercícios pois já tem os arquivos trazendo seus respectivos códigos
+## Etapa 1 : Criar Bucket
+
+![Criar-Bucket](evidencias/exercicios/etapa1-criar_bucket.png)
+
+## Etapa 2: Habilitar hospedagem de site estático
+
+### habilitando hospedagem
+![Habilitar hospedagem](evidencias/exercicios/etapa2-habilitar_hospedagem.png)
+
+### definindo nome dos arquivos
+![Nome arquivos](evidencias/exercicios/etapa2-nomes_arquivos.png)
+
+## Etapa 3: editar as configurações do Bloqueio de acesso público
+![Configuracao bloqueio](evidencias/exercicios/etapa3-config-bloqueio_publico.png)
+
+## Etapa 4: Adicionar política de bucket que torna o conteúdo do bucket publicamente disponível
+![Bucket publico](evidencias/exercicios/etapa4-politica-bucket-publico.png)
+
+## Etapa 5: Configurar um documento de índice
+
+### fazendo upload dos arquivos 
+![Arquivo index](evidencias/exercicios/etapa5-upload.png)
+
+### pasta dados
+![Pasta dados](evidencias/exercicios/etapa5-pasta_dados.png)
+
+## Etapa 6: configurar documento de erros
+
+### arquivo de erro criado localmente
+![Arquivo local](evidencias/exercicios/etapa6-arquivo_local.png)
+
+### upload do arquivo de erro
+![Upload erro](evidencias/exercicios/etapa6-upload_arquivo_erro.png)
+
+## Etapa 7: testar o endpoint do site
+
+### endpoint 
+![Endpoint](evidencias/exercicios/etapa7-endpoint.png)
+
+### site no ar
+![Testando endpoint](evidencias/exercicios/etapa7-testando_endpoint.png)
 
 # Certificados
 
