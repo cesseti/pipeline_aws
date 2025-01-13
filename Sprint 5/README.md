@@ -60,4 +60,6 @@
 
 # Certificados
 
-[AWS Partner Credenciamento Técnico](./certificados/AWS_Partner_Credenciamento_Técnico_(Carlos_Alberto_Alves_Ribeiro).pdf)
+[AWS Skill Builder](./certificados/18719_5_6675764_1736804772_AWS%20Skill%20Builder%20Course%20Completion%20Certificate.pdf)
+
+[AWS Cloud Quest](https://www.credly.com/badges/e107cd36-0ba2-451d-9efc-48d5c1341ae0/public_url)
