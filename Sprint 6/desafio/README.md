@@ -135,3 +135,7 @@ CMD ["python", "raw.py"]
 
 ![series_criada](../evidencias/desafio/series_criada.png)
 
+## Arquivos armazenados no volume: 
+
+![arquivos-no-volume](../evidencias/desafio/arquivos-no-volume.png)
+

@@ -1,8 +1,22 @@
 # Resumo
 
-**AWS Cloud Quest:** O jogo da plataforma foi muito bom e intuitivo para aprender na prática os conceitos e serviços.
+**Noções básicas de Analytics na AWS – Parte 1 :** Conceitos básicos, como tipos de analytics, os 5 Vs do big data e os desafios associados ao processamento de grandes volumes de dados. Este curso também mapeia os 5 Vs do big data para os serviços de analytics da AWS e discute como a AWS fornece os serviços mais abrangentes do mercado.
 
-**AWS Preparatório:** O curso de preparação para a prova foi muito bom pois relembra muitos assuntos e nos ensina a ler e interpretar as questões da prova.
+**Fundamentos de analytics na AWS – Parte 2:**  Com base nos conceitos apresentados na Parte 1, este curso apresenta uma visão geral dos data lakes, data warehouses e das arquiteturas de dados modernas na AWS. Você aprenderá quais serviços da AWS podem ser usados para criar um data warehouse, data lakes e arquiteturas de dados modernas na AWS. Você também verá casos de uso comuns da arquitetura de dados moderna e uma arquitetura de referência. 
+
+**Serverless Analytics:** Este curso mostrará como sintetizar todos esses diferentes dados usando o poder de ferramentas como AWS IoT Analytics, Amazon Cognito, AWS Lambda e Amazon SageMaker, entre outras.
+
+**Introduction to Amazon Athena:** Este curso apresenta o serviço Amazon Athena junto com uma visão geral do ambiente operacional. Também são discutidas as etapas básicas da implementação do Amazon Athena. Usando o Console de Gerenciamento da AWS, é realizada uma breve demonstração da criação de um banco de dados para executar consultas SQL para validação.
+
+**AWS Glue Getting Started:** Este curso ensina os benefícios, casos de uso típicos e conceitos técnicos do AWS Glue, incluindo o AWS Glue Studio e o AWS Glue DataBrew. O DataBrew é uma nova ferramenta de preparação de dados visuais que ajuda analistas e cientistas de dados a limpar e normalizar dados para prepará-los para análise e aprendizado de máquina.
+
+**Amazon EMR Getting Started:** Este curso, ensina o Amazon EMR Serverless, que é uma nova opção no Amazon EMR que o torna eficiente e econômico para engenheiros e analistas de dados executarem aplicativos criados usando estruturas de big data de código aberto sem precisar ajustar, operar, otimizar, proteger ou gerenciar clusters. 
+
+**Getting Started with Amazon Redshift:** Este curso, ensina os benefícios, os casos de uso mais comuns e os conceitos técnicos do Amazon Redshift.
+
+**Best Practices for Data Warehousing with Amazon Redshift:** Este curso ensina sobre os conceitos de implementação de um data warehouse usando o Amazon Redshift.
+
+**Amazon QuickSight - Getting Started:** Este curso ensina sobre os benefícios e conceitos técnicos do QuickSight.
 
 # Exercícios
 
@@ -148,6 +162,20 @@ ORDER BY decada, rank;
 
 # Certificados
 
-[AWS Skill Builder](./certificados/18719_5_6675764_1736804772_AWS%20Skill%20Builder%20Course%20Completion%20Certificate.pdf)
+[AWS Athena](./certificados/AWS%20Course%20Completion%20Certificate-athena.pdf)
 
-[AWS Cloud Quest](https://www.credly.com/badges/e107cd36-0ba2-451d-9efc-48d5c1341ae0/public_url)
+[AWS Glue](./certificados/AWS%20Course%20Completion%20Certificate-Glue.pdf)
+
+[AWS QuickSight](./certificados/AWS%20Course%20Completion%20Certificate-QuickSight.pdf)
+
+[AWS Redshift](./certificados/AWS%20Course%20Completion%20Certificate-redshift.pdf)
+
+[AWS Serveless Analytics](./certificados/AWS%20Course%20Completion%20Certificate-serveless_analytics.pdf)
+
+[AWS Analytics Part 1](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-analytics-part1.pdf)
+
+[AWS Analytics Part 2](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-analytics-part2.pdf)
+
+[AWS Best Practicies](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-Best_Practicies.pdf)
+
+[AWS EMR](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-EMR.pdf)
