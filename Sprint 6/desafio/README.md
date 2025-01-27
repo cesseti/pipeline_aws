@@ -1,8 +1,6 @@
 # Perguntas para serem analisadas:
-    f
-    f
-    f
-    f
+    Quais filmes de guerra tiveram a melhor performance nos últimos 10 anos ?
+    Quais gêneros de guerra que fizeram mais sucesso nos últimos 5 anos ?   
 
 # Etapa 1 - Implementar código python para ler os dois arquivos, sem filtragens, e colocá-los no bucket s3: [raw.py](raw.py)
 
