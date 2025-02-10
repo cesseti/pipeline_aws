@@ -1,28 +1,11 @@
-# Perguntas para serem analisadas:
+import json
+import pandas as pd
+import boto3
+import requests
+import os
+import io
+from datetime import datetime
 
-    Financeiro:
-    Quais filmes de guerra tiveram melhor lucro ?
-    Quais filmes com maior orçamento e suas popularidades ?  
-
-    Popularidade e alcance:
-    Como ficou a popularidade dos filmes de guerra ao longo das décadas ? 
-    Quais os filmes mais populares lançados nos últimos 5 anos ?
-    Qual a quantidade de filmes com maior nota média em relacão ao tempo de duracão ?
-
-    Geografia:
-    De quais regiões do mundo a maioria dos filmes de guerra se originam  ?
-    Quais os países com maior número de produtoras ?
-
-
-
-# Etapa 1 - Criar Lambda para criar um DF a partir do arquivo movies e fazer algumas filtragens para refinar a busca pelos dados adicionais na api.
-
-## Api criada: 
-
-![api-criada](../evidencias/desafio/api-criada.png)
-
-## O código usado para ler o arquivo no bucket e transformar em DF com suas devidas filtragens foi o seguinte:
-```python 
 def lambda_handler(event, context):
     s3_client = boto3.client('s3')
     
@@ -43,12 +26,7 @@ def lambda_handler(event, context):
     # Tirando duplicatas e mantendo filmes únicos por ID
     df_filtered = df_filtered.drop_duplicates('id', keep= 'first')
 
-```
-
-## Para buscar os filmes de guerra no tmdb por seu respectivo id utilizei das seguintes linhas:
-```python
-
-# Função que busca os dados por ID do filme
+    # Função que busca os dados por ID do filme
     def search_data(id_movie, api_key):
         url = f"https://api.themoviedb.org/3/movie/{id_movie}"
         params = {
@@ -90,14 +68,8 @@ def lambda_handler(event, context):
             data.append(movie)
         else:
             print(f"Nenhum dado encontrado para o filme com ID {id_movie}.")
-```
 
-    OBS: Api Key como variável de ambiente para não expor no código
-
-## E escrevi esses códigos para estruturar o caminho dos arquivos JSONs e separá-los em arquivos com máximo de 100 objetos:
-```python
-
- # Cria um DataFrame com os dados da api
+    # Cria um DataFrame com os dados da api
     df_data = pd.DataFrame(data)
     print(f"Dados coletados: {len(df_data)} registros.")
 
@@ -143,43 +115,3 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': 'Processamento concluído!'
     }
-```
-
-## Todo o código está presente no arquivo [lambda.py](./lambda.py)
-
-
-# Etapa 2 - Criar Layer
-
-## Para isso criei uma imagem a partir do [dockerfile](./dockerfile):
-
-![build](../evidencias/desafio/imagem-layer.png)
-
-
-## Executei um container onde baixei e zipei as libs necessárias: 
-
-![caminho-layer](../evidencias/desafio/caminho-layer.png)
-
-
-![libs](../evidencias/desafio/libs_instaladas.png)
-
-
-## Então criei a Layer:
-
-![layers-criadas](../evidencias/desafio/layers-criadas.png)
-
-    OBS: Reaproveitei a layer Pandas da sprint passada
-
-## Layers sendo utilizadas na lambda: 
-
-![utilizando-layers](../evidencias/desafio/utilizando-layers.png)
-
-
-## Test com sucesso: 
-
-![teste_sucesso](../evidencias/desafio/teste_sucesso.png)
-
-
-## JSONs no bucket:
-
-![ados_salvos_no_bucket](../evidencias/desafio/dados_salvos_no_bucket.png)
-

@@ -1,181 +1,119 @@
 # Resumo
 
-**Noções básicas de Analytics na AWS – Parte 1 :** Conceitos básicos, como tipos de analytics, os 5 Vs do big data e os desafios associados ao processamento de grandes volumes de dados. Este curso também mapeia os 5 Vs do big data para os serviços de analytics da AWS e discute como a AWS fornece os serviços mais abrangentes do mercado.
+**Spark :** O curso de Spark ensinou o necesário desde o básico ao avançado para utilização do framework.
 
-**Fundamentos de analytics na AWS – Parte 2:**  Com base nos conceitos apresentados na Parte 1, este curso apresenta uma visão geral dos data lakes, data warehouses e das arquiteturas de dados modernas na AWS. Você aprenderá quais serviços da AWS podem ser usados para criar um data warehouse, data lakes e arquiteturas de dados modernas na AWS. Você também verá casos de uso comuns da arquitetura de dados moderna e uma arquitetura de referência. 
-
-**Serverless Analytics:** Este curso mostrará como sintetizar todos esses diferentes dados usando o poder de ferramentas como AWS IoT Analytics, Amazon Cognito, AWS Lambda e Amazon SageMaker, entre outras.
-
-**Introduction to Amazon Athena:** Este curso apresenta o serviço Amazon Athena junto com uma visão geral do ambiente operacional. Também são discutidas as etapas básicas da implementação do Amazon Athena. Usando o Console de Gerenciamento da AWS, é realizada uma breve demonstração da criação de um banco de dados para executar consultas SQL para validação.
-
-**AWS Glue Getting Started:** Este curso ensina os benefícios, casos de uso típicos e conceitos técnicos do AWS Glue, incluindo o AWS Glue Studio e o AWS Glue DataBrew. O DataBrew é uma nova ferramenta de preparação de dados visuais que ajuda analistas e cientistas de dados a limpar e normalizar dados para prepará-los para análise e aprendizado de máquina.
-
-**Amazon EMR Getting Started:** Este curso, ensina o Amazon EMR Serverless, que é uma nova opção no Amazon EMR que o torna eficiente e econômico para engenheiros e analistas de dados executarem aplicativos criados usando estruturas de big data de código aberto sem precisar ajustar, operar, otimizar, proteger ou gerenciar clusters. 
-
-**Getting Started with Amazon Redshift:** Este curso, ensina os benefícios, os casos de uso mais comuns e os conceitos técnicos do Amazon Redshift.
-
-**Best Practices for Data Warehousing with Amazon Redshift:** Este curso ensina sobre os conceitos de implementação de um data warehouse usando o Amazon Redshift.
-
-**Amazon QuickSight - Getting Started:** Este curso ensina sobre os benefícios e conceitos técnicos do QuickSight.
 
 # Exercícios
 
-### Exercício 3 - Lab AWS Athena
+## Exercício 5 - Spark
 
-[resultado](exercicios/athena/3-etapa_3.5-resultado.csv)
+[script](exercicios/5-Spark/script.py)
 
-- [Exercício 3 - evidências](#exercício-3---lab-aws-athena-1)
+- [Exercício 5 - evidências](#exercício-5---spark-1)
 
-### Exercício 4 - Lab AWS Lambda
+## Exercício 6 - TMDB
 
-[dockerfile](exercicios/lambda/dockerfile)
+[script](exercicios/6-TMDB/tmdb.py)
 
-[minha-camada-pandas.zip](exercicios/lambda/minha-camada-pandas.zip)
+- [Exercício 6 - evidências](#exercício-4---lab-aws-lambda-1)
 
-- [Exercício 4 - evidências](#exercício-4---lab-aws-lambda-1)
+## Exercício 7 - Lab Glue
 
+[script](exercicios/7-Glue/glue.py)
+
+- [Exercício 7 - evidências](#exercício-4---lab-aws-lambda-1)
 
 # Evidências
 
-## Exercício 3 - Lab AWS Athena
+## Exercício 5 - Spark
 
-## Etapa 1: Configurar Athena
-![Criar-Bucket](evidencias/exercicios/3-Athena/3-etapa_1.1-criar_bucket.png)
+### Etapa 1: Pull imagem
 
-![bucket_criado](evidencias/exercicios/3-Athena/3-etapa_1.1-bucket_criado.png)
-
-### upload csv
-![upload](evidencias/exercicios/3-Athena/3-etapa_1.2-upload.png)
-
-![upload](evidencias/exercicios/3-Athena/3-etapa_1.2-upload_feito.png)
-
-### pasta queries
-![queries](evidencias/exercicios/3-Athena/3-etapa_1.5-pasta_queries.png)
-
-![queries](evidencias/exercicios/3-Athena/3-etapa_1.5-queries_criada.png)
-
-### caminho para o bucket
-![caminho para o bucket](evidencias/exercicios/3-Athena/3-etapa_1.9-caminho_pasta.png)
-
-![caminho para o bucket](evidencias/exercicios/3-Athena/3-etapa_1.9-caminho%20salvo.png)
+![pull_imagem](evidencias/exercicios/5-Spark/spark-e1-pull_imagem.png)
 
 
-## Etapa 2: Criar um banco de dados
-![criar_database](evidencias/exercicios/3-Athena/3-etapa_2-criar_database.png)
+### Etapa 2: Criar container a partir da imagem
+
+![spark-e2.1](evidencias/exercicios/5-Spark/spark-e2.1.png)
+
+![spark-e2.2](evidencias/exercicios/5-Spark/spark-e2.2.png)
 
 
-## Etapa 3: Criar uma tabela
+### Etapa 3: PySpark iterativo
 
-### criar tabela 
-![criar_tabela](evidencias/exercicios/3-Athena/3-etapa_3.1-criar_tabela.png)
-
-![criar_tabela](evidencias/exercicios/3-Athena/3-etapa_3.1-sucesso.png)
-
-### testando dados
-![criar_tabela](evidencias/exercicios/3-Athena/3-etapa_3.4-testa_dados.png)
-
-### resultado
-![criar_tabela](evidencias/exercicios/3-Athena/3-etapa_3.4-resultado.png.png)
-
-### consulta que lista os 3 nomes mais usados em cada década desde o 1950 até hoje.
-``` sql
-WITH decadas AS (
-    SELECT 
-        CAST(FLOOR(ano / 10) * 10 AS INTEGER) AS decada,
-        nome,
-        SUM(total) AS total_frequencia
-    FROM cliente
-    WHERE ano >= 1950
-    GROUP BY CAST(FLOOR(ano / 10) * 10 AS INTEGER), nome
-),
-nomes_ranqueados AS (
-    SELECT
-        decada,
-        nome,
-        total_frequencia,
-        ROW_NUMBER() OVER (PARTITION BY decada ORDER BY total_frequencia DESC) AS rank
-    FROM decadas
-)
-SELECT
-    decada,
-    nome,
-    total_frequencia
-FROM nomes_ranqueados
-WHERE rank <= 3
-ORDER BY decada, rank;
-
-```
-### resultado: [query_final](exercicios/athena/3-etapa_3.5-resultado.csv)
+![pyspark](evidencias/exercicios/5-Spark/spark-e3-pyspark.png)
 
 
+### Etapa 4: Código
 
-## Exercício 4 - Lab AWS Lambda
-
-## Etapa 1: Criar a função do Lambda
-![criar_funcao](evidencias/exercicios/4-Lambda/4-e1-criar_funcao.png)
+![código](evidencias/exercicios/5-Spark/spark-e4.png)
 
 
-## Etapa 2: Construir o código
+## Exercício 6 - TMDB
 
-### criando teste
-![criando-teste](evidencias/exercicios/4-Lambda/4-e2.3-criando-teste.png)
+### Etapa 1: Criar conta
 
-### erro
-![erro](evidencias/exercicios/4-Lambda/4-e2.4-erro.png)
+![conta](evidencias/exercicios/6-TMDB/tmdb-e3.1-conta.png)
 
 
-## Etapa3: Criar uma Layer
+### Etapa 2: Testar credenciais
 
-### dockerfile 
-![dockerfile](evidencias/exercicios/4-Lambda/4-e3.1-dockerfile.png)
-
-### imagem criada
-![dockerfile](evidencias/exercicios/4-Lambda/4-e3.2-imagem_criada.png)
-
-### diretorios criados
-![diretorios](evidencias/exercicios/4-Lambda/4-e3.4-diretorios.png)
-
-### baixando bibliotecas
-![baixando bibliotecas](evidencias/exercicios/4-Lambda/4-e3.5-baixando_biblioteca.png)
-
-### arquivos compactados
-![compactado](evidencias/exercicios/4-Lambda/4-e3.7-compactado.png)
-
-### copiar o zip do Container para a máquina local
-![copiando_arquivo](evidencias/exercicios/4-Lambda/4-e3.8-copiando_arquivo.png)
-
-### upload para o bucket
-![arquivo_bucket](evidencias/exercicios/4-Lambda/4-e3.9-arquivo_bucket.png)
-
-### criando camada 
-![criando_camada](evidencias/exercicios/4-Lambda/4-e3.11-criando_camada.png)
+![Testar credenciais](evidencias/exercicios/6-TMDB/tmdb-e3.2-testando_credenciais.png)
 
 
-## Etapa 4: Utilizando a Layer
+## Exercício 7 - Lab Glue
 
-### adicionando camada
-![adicionando_camada](evidencias/exercicios/4-Lambda/4-e4.5-adicionando_camada.png)
+### Etapa 1: Criando a IAM Role para os jobs do AWS Glue
 
-### execução
-![execucao](evidencias/exercicios/4-Lambda/4-e4.6-execucao.png)
+![glue-e2.1](evidencias/exercicios/7-Glue/glue-e2.1.png)
+
+![glue-e2.2](evidencias/exercicios/7-Glue/glue-e2.2.png)
+
+
+### Etapa 2:  Configurando sua conta para utilizar o AWS Glue
+
+![glue-e3.1](evidencias/exercicios/7-Glue/glue-e3.1.png)
+
+![glue-e3.2](evidencias/exercicios/7-Glue/glue-e3.2.png)
+
+![glue-e3.3](evidencias/exercicios/7-Glue/glue-e3.3.png)
+
+
+### Etapa 3:  Configurando as permissões no AWS Lake Formation
+
+![glue-e4](evidencias/exercicios/7-Glue/glue-e4.png)
+
+
+### Etapa 4: - Criando novo job no AWS Glue
+
+![glue-e5.1](evidencias/exercicios/7-Glue/glue-e5.1.png)
+
+![glue-e5.2](evidencias/exercicios/7-Glue/glue-e5.2.png)
+
+![glue-e5.3](evidencias/exercicios/7-Glue/glue-e5.3.png)
+
+![glue-e5.4](evidencias/exercicios/7-Glue/glue-e5.4-run_sucess.png)
+
+![glue-e5.5](evidencias/exercicios/7-Glue/glue-e5.5-arquivo_bucket.png)
+
+![glue-e5.6](evidencias/exercicios/7-Glue/glue-e5.6-run_green.png)
+
+![glue-e5.7](evidencias/exercicios/7-Glue/glue-e5.7-bucket.png)
+
+![glue-e5.8](evidencias/exercicios/7-Glue/glue-e5.8-particionado_ano.png)
+
+![glue-e5.8](evidencias/exercicios/7-Glue/glue-e5.8-particionado_sexo.png)
+
+
+### Etapa 5:  Criando crawler
+
+![glue-e6.1](evidencias/exercicios/7-Glue/glue-e6.1-criando_crawler.png)
+
+![glue-e6.2](evidencias/exercicios/7-Glue/glue-e6.2-tabela_criada.png)
+
+![glue-e6.3](evidencias/exercicios/7-Glue/glue-e6.3-quey.png)
 
 
 # Certificados
 
-[AWS Athena](./certificados/AWS%20Course%20Completion%20Certificate-athena.pdf)
-
-[AWS Glue](./certificados/AWS%20Course%20Completion%20Certificate-Glue.pdf)
-
-[AWS QuickSight](./certificados/AWS%20Course%20Completion%20Certificate-QuickSight.pdf)
-
-[AWS Redshift](./certificados/AWS%20Course%20Completion%20Certificate-redshift.pdf)
-
-[AWS Serveless Analytics](./certificados/AWS%20Course%20Completion%20Certificate-serveless_analytics.pdf)
-
-[AWS Analytics Part 1](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-analytics-part1.pdf)
-
-[AWS Analytics Part 2](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-analytics-part2.pdf)
-
-[AWS Best Practicies](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-Best_Practicies.pdf)
-
-[AWS EMR](./certificados/AWS%20Skill%20Builder%20Course%20Completion%20Certificate-EMR.pdf)
+    Não houveram certificados extra Udemy essa Sprint.

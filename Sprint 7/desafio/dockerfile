@@ -1,9 +1,9 @@
-FROM python
+FROM amazonlinux:2023
 
-WORKDIR /app
+RUN yum update -y
 
-COPY . .
+RUN yum install -y \
+python3-pip \
+zip
 
-RUN pip install boto3 pandas
-
-CMD ["python", "raw.py"]
+RUN yum -y clean all
