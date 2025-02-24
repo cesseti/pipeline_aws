@@ -1,3 +1,4 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
 Sprint[[:space:]]8/exercicios/2-Geracao_em_massa/nomes_aleatorios.txt filter=lfs diff=lfs merge=lfs -text
 Sprint[[:space:]]8/exercicios/3-Apache_spark/nomes_aleatorios.txt filter=lfs diff=lfs merge=lfs -text
+Sprint[[:space:]]8/exercicios/3-Apache_Spark/nomes_aleatorios.txt filter=lfs diff=lfs merge=lfs -text
