@@ -55,14 +55,13 @@ dim_personagem.coalesce(1).write.mode("append").parquet(f"{target_path}/dim_pers
 ```python
 
 # Ler o arquivo de paises 
-df_paises = spark.read.option("multiLine", True).parquet(input_path + "part-00000-e25646d7-36a4-41d8-b07c-6158a2744179.c000.snappy.parquet")
-
-window_spec_pais = Window.orderBy("codigo_pais")
+df_paises = spark.read.option("multiLine", True).parquet(input_country + "part-00000-1eb3a45e-f79c-4aff-9699-e651dfd20580.c000.snappy.parquet")
 
 dim_pais = df_paises.select(
+    F.col("id_serie"),
     F.col("codigo_pais").alias("codigo_pais"),
     F.col("provedores").alias("plataforma")
-).withColumn(
+).distinct().withColumn(
     "id_pais", F.monotonically_increasing_id() # Criar IDs únicos para cada país
 )
 
@@ -100,7 +99,27 @@ dim_tempo.write.mode("append").partitionBy("ano", "mes").parquet(f"{target_path}
 
 # Tabela Fatos
 
-# Adicionar o ID de tempo (data_lancamento) ao DataFrame df_series
+# Cria DF intermediario entre personagens e series para obter os IDs diferentes
+df_series_personagens = df_personagens.join(
+    df_series,
+    df_personagens["numeroTemporada"] == df_series["numeroTemporada"],
+    "inner"
+).select(
+    df_series["id"].alias("id_tmdb"),
+    df_personagens["id"].alias("id_imdb")
+)
+
+# Criar um DataFrame que associa as séries aos países
+df_series_paises = df_series_personagens.join(
+    dim_pais,
+    df_series_personagens["id_imdb"] == dim_pais["id_serie"],
+    "left"
+).select(
+    df_series_personagens["id_tmdb"].alias("id_serie"),
+    dim_pais["id_pais"]
+)
+
+# Adicionar o ID da tempo (data_lancamento) ao DataFrame df_series
 df_series_com_tempo = df_series.join(
     dim_tempo,
     df_series["dataLancamento"] == dim_tempo["data_lancamento"],
@@ -109,23 +128,35 @@ df_series_com_tempo = df_series.join(
     df_series["*"]
 )
 
-# Criar a tabela de fatos
-fato_series = df_series_com_tempo.join(
+
+# Juntar os dados de séries e países
+df_series_com_pais = df_series_com_tempo.join(
+    df_series_paises,
+    df_series_com_tempo["id"] == df_series_paises["id_serie"],
+    "left"
+).select(
+    df_series_com_tempo["*"],
+    df_series_paises["id_pais"]
+)
+
+
+# Criar tabela Fatos
+fato_series = df_series_com_pais.join(
     df_personagens,
-    df_series_com_tempo["numeroTemporada"] == df_personagens["numeroTemporada"],
+    df_series_com_pais["numeroTemporada"] == df_personagens["numeroTemporada"],
     "inner"
-).crossJoin(dim_pais).select(
-    df_series_com_tempo["id"].alias("id_serie"),
+).select(
+    df_series_com_pais["id"].alias("id_serie"),
     df_personagens["idArtista"].alias("id_personagem"),
-    df_series_com_tempo["idTemporada"].alias("id_temporada"),
-    dim_pais["id_pais"],
-    df_series_com_tempo["dataLancamento"].alias("data_lancamento"),
-    df_series_com_tempo["notaMedia"].alias("avaliacao"),
-    df_series_com_tempo["popularidade"].alias("popularidade_serie"),
+    df_series_com_pais["idTemporada"].alias("id_temporada"),
+    df_series_com_pais["id_pais"],
+    df_series_com_pais["dataLancamento"].alias("data_lancamento"),
+    df_series_com_pais["notaMedia"].alias("avaliacao"),
+    df_series_com_pais["popularidade"].alias("popularidade_serie"),
     df_personagens["popularidadeArtista"].alias("popularidade_personagem"),
-    df_series_com_tempo["quantidadeTemporadas"].alias("numero_temporadas"),
-    df_series_com_tempo["quantidadeEpisodios"].alias("numero_episodios"),
-    df_series_com_tempo["numeroTemporada"].alias("numero_temporada"),
+    df_series_com_pais["quantidadeTemporadas"].alias("numero_temporadas"),
+    df_series_com_pais["quantidadeEpisodios"].alias("numero_episodios"),
+    df_series_com_pais["numeroTemporada"].alias("numero_temporada"),
     df_personagens["ordemImportancia"].alias("ordem_importancia")
 )
 
